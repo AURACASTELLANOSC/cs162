@@ -15,6 +15,7 @@ list::~list()
 {
   // cout << "call to destructor" << endl;
    //deallocate memory for index
+   cout<<"Test"<<endl;
    if(index)
    {
       delete []  index;
