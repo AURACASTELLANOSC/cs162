@@ -13,35 +13,23 @@ word::word()
 //destructor
 word::~word()
 {
-   //cout  << "Destructor" << endl;
-   //deallocates memory for data
    if(data)
    {
-      delete []data;
       data = nullptr;
    }
 }
 
 //may include const, acces, mutators and helpers
 //mutators
-void word::setData( char *newData)
+void word::setData(char *newData)
 {
-   if(data)
-   {
-      delete []data;
-      data = nullptr;
-    }
-    cout << newData << endl;
-   data= new char[strlen(newData) + 1];
+   data = new char[strlen(newData) + 1];
    memset(data, 0, strlen(newData) + 1); 
    strcpy(data, newData);
-   cout << "data" << data << endl;
-   delete [] newData; 
 }
 
 void word::setCount()
 {
-   //increment one every time the word is repeated
    count++; 
 }
 
@@ -49,7 +37,7 @@ void word::setCount()
 void word::getData( char *returnData)
 { 
    strcpy(returnData, data);
-  cout << "returndata " << returnData << endl;
+  //cout << "returndata " << returnData << endl;
 }
 
 int  word::getLength()
@@ -60,7 +48,7 @@ int  word::getLength()
    }
    else 
    {
-	   cout << data << endl;
+	   //cout << data << endl;
       return strlen(data); 
    }
 }
@@ -72,5 +60,5 @@ int  word::getCount()
 //print
 void word::printWord()
 {
-   cout << "word: " << data << " Count: " << count << endl;
+   cout << "[Word]: " << data << " [Count]: " << count << endl;
 }

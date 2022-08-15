@@ -6,16 +6,13 @@ using namespace std;
 list::list()
 {
   cout << "call default list"  << endl;
-   index = nullptr; 
-   size = 0;
+  index = nullptr; 
+  size = 0;
 }
 
 //destructor
 list::~list()
 {
-  // cout << "call to destructor" << endl;
-   //deallocate memory for index
-   cout<<"Test"<<endl;
    if(index)
    {
       delete []  index;
@@ -23,44 +20,41 @@ list::~list()
    }
 }
 
-void list::insert(char * newWord)
+void list::insert(char * newWord)//amarillo
 { 
-   int i = 0;
-   char *tempWord = nullptr;      
-   bool wordExist = false;
-   
-   if (size == 0)
+   //cout<<"Buffer list: "<<newWord<<endl;
+   bool existWord = false;
+   char * tempWord;
+   for (int i = 0; i < size; i++) //1
    {
-
-      index[size].setData(newWord);
-      index[size].setCount();
-      size++; 
-      wordExist = true; 
-   }
-   
-   for(i = 0; i < size; i++)
-   {
-      tempWord = new char[index[i].getLength() + 1]{0};//init to 0  
-      index[i].getData(tempWord);
-      if(strcmp(newWord,tempWord) == 0)
-      {
-	      wordExist = true;
-	      index[i].setCount(); 
-	      break;  
+      tempWord = new char[index[i].getLength() + 1]{0};
+      index[i].getData(tempWord);//Get data value from word instance in index[i]
+      if(strcmp(tempWord, newWord) == 0){ //If word exist then
+         index[i].setCount();//Set count value 
+         existWord = true;
+         break;
       }
-      delete []tempWord; 
+      delete []tempWord;//Delete memory used by tempWord array
    }
-   if(!wordExist)
-   {  
-      //resize 
-       //copy it 
-    // word *tempindex = new word [++size]; 
-    //  delete []index; 
-    //  index = tempindex;  
+   if(!existWord){
+      //Re-size array
+      word *temp;  //Temp array of type word class
+      temp = new word[size+1]; //Memory size + 1 (space for element to be inserted)
+      if(size > 0){//If size > zero then copy elementos of index array to temp array
+         for (int i = 0; i < (size); i++) {
+            temp[i] = index[i];//amarillo, azul
+         }
+         delete[] index;//Delete memory of index array         
+         cout<<endl;
+      }
+      index = temp;//assign value of temp array to index array
+      word *myWord = new word();//Create a new word instance
+      myWord->setData(newWord);//Set value data in instance of word
+      myWord->setCount();//Increment word count (initial value = 1)
+      index[size++] = *myWord;//Insert word instance in the reserved space of index array from temp array    
 
-      index[size - 1].setData(newWord);
-      index[size - 1].setCount();
    }
+
 }
 
 void list::print()
